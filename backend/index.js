@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors'); // Import CORS
 const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
+
+// Use CORS middleware
+app.use(cors());
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -28,11 +32,15 @@ pool.connect()
     console.error('Connection error:', err.stack);
   });
 
-  // Simple API route
+// Simple API route
 app.get('/', (req, res) => {
     res.send('Makalu Backend API');
-  });
+});
 
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'fuck you motherfuckerrrrr!' });
+});
+  
 // Sample route to check database query
 app.get('/time', (req, res) => {
   pool.query('SELECT NOW()')
