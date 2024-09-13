@@ -45,10 +45,6 @@ body {
   transition: margin-left 0.3s ease;
 }
 
-.main-content {
-  text-align: center;
-}
-
 .search-container {
   display: inline-flex;
   align-items: center;
@@ -74,6 +70,7 @@ input[type="text"]:focus {
   cursor: pointer;
 }
 
+/* Sidebar hidden when closed */
 .sidebar {
   background-color: #F5EFE6;
   color: black;
@@ -86,26 +83,35 @@ input[type="text"]:focus {
   border-right: 1px solid black;
   z-index: 0;
   transition: left 0.3s ease; /* Smooth transition */
+  display: none; /* Hidden by default */
 }
 
 .App.sidebar-open .sidebar {
-  left: 0; /* Move into view when open */
+  left: 0;
+  display: block; /* Show when open */
 }
 
 .App.sidebar-open .main-container {
   margin-left: 200px; /* Shift main content when sidebar is open */
 }
 
+/* Mobile styling for smaller screens */
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
     height: calc(100vh - 10vh);
-    left: 0; /* Always visible on small screens */
+    left: -100%;
     z-index: 2; /* Ensure sidebar is above content on small screens */
   }
 
+  .App.sidebar-open .sidebar {
+    left: 0;
+    display: block; /* Show when toggled on */
+    width: 100%; /* Take up full width on small screens */
+  }
+
   .App.sidebar-open .main-container {
-    margin-left: 0;
+    margin-left: 0; /* Don't shift main content */
   }
 }
 
@@ -126,4 +132,51 @@ input[type="text"]:focus {
   align-items: center;
   height: 10vh;
   width: 10%;
+}
+
+/* Dialog box styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.dialog-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dialog-btn {
+  background-color: #B4CDE6;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 5px;
+}
+
+.login-container {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.login-btn {
+  background-color: #B4CDE6;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
